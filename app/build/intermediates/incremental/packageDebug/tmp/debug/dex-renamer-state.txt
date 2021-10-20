@@ -1,0 +1,4 @@
+#Wed Oct 20 00:00:48 CDT 2021
+base.0=/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/build/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

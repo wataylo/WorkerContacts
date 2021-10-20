@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/setGroups"
+        android:title="@string/setgroups" />
+    <group android:id="@+id/textSize">
+        <item
+            android:id="@+id/TextSizeLarge"
+            android:title="Large Text" />
+        <item
+            android:id="@+id/TextSizeNormal"
+            android:title="Medium Text" />
+        <item
+            android:id="@+id/TextSizeSmall"
+            android:title="Small Text" />
+    </group>
+
+
+</menu>

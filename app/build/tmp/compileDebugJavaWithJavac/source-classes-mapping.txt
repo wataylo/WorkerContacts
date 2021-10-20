@@ -1,0 +1,15 @@
+com/warren/wkrcontacts/BuildConfig.java
+ com.warren.wkrcontacts.BuildConfig
+com/warren/wkrcontacts/WorkerContactsActivityActivity.java
+ com.warren.wkrcontacts.WorkerContactsActivityActivity
+ com.warren.wkrcontacts.WorkerContactsActivityActivity$1
+ com.warren.wkrcontacts.WorkerContactsActivityActivity$2
+ com.warren.wkrcontacts.WorkerContactsActivityActivity$3
+com/warren/wkrcontacts/SelectGroups.java
+ com.warren.wkrcontacts.SelectGroups
+ com.warren.wkrcontacts.SelectGroups$1
+ com.warren.wkrcontacts.SelectGroups$CustomGroupAdapter
+ com.warren.wkrcontacts.SelectGroups$CustomGroupAdapter$1
+ com.warren.wkrcontacts.SelectGroups$CustomGroupAdapter$ViewHolder
+com/warren/wkrcontacts/MyApplication.java
+ com.warren.wkrcontacts.MyApplication

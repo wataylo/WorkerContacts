@@ -1,0 +1,72 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "15,17,22,27,33,36,42,47,50,56,61,64,70",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "697,756,1008,1264,1522,1616,1877,2072,2167,2429,2630,2724,2985",
+                        "endLines": "16,21,26,32,35,41,46,49,55,60,63,69,74",
+                        "endColumns": "10,10,10,10,9,12,9,9,12,14,9,12,12",
+                        "endOffsets": "751,1003,1259,1517,1611,1872,2067,2162,2424,2625,2719,2980,3178"
+                    }
+                },
+                {
+                    "source": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,9,8,-1",
+                        "startColumns": "-1,-1,-1,-1,4,4,-1",
+                        "startOffsets": "-1,-1,-1,-1,368,328,-1",
+                        "endColumns": "-1,-1,-1,-1,37,39,-1",
+                        "endOffsets": "-1,-1,-1,-1,401,363,-1"
+                    },
+                    "to": {
+                        "startLines": "8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "347,397,450,501,549,587,627",
+                        "endColumns": "49,52,50,47,37,39,69",
+                        "endOffsets": "392,445,496,544,582,622,692"
+                    }
+                },
+                {
+                    "source": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/src/main/res/values/attrs.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1",
+                        "startColumns": "-1,-1,-1",
+                        "startOffsets": "-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,105,155",
+                        "endColumns": "49,49,57",
+                        "endOffsets": "100,150,208"
+                    }
+                },
+                {
+                    "source": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/src/main/res/values/dimens.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1",
+                        "startColumns": "-1,-1,-1",
+                        "startOffsets": "-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "5,6,7",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "213,258,303",
+                        "endColumns": "44,44,43",
+                        "endOffsets": "253,298,342"
+                    }
+                }
+            ]
+        }
+    ]
+}
