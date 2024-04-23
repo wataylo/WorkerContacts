@@ -1,11 +1,13 @@
 package com.warren.wkrcontacts;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +24,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
 
 public class WorkerContactsActivityActivity extends Activity {
     /** Called when the activity is first created. */
@@ -32,17 +37,14 @@ public class WorkerContactsActivityActivity extends Activity {
     //In all the classes which use R resource references, remove any other import with .R, i.e. import android.R;
     //Used for Database interface
     private Cursor contactsCursor;
-    private Cursor cursorField;
 	private ArrayAdapter<String> fieldAdapter;
-    private ArrayAdapter<String>
-			meetingAdapter;
-    
-    //This var keeps the onclicklisteners from updating until initial onCreate complete
+
+	//This var keeps the onclick-listeners from updating until initial onCreate complete
     private boolean InitComplete;
     //On click listener doesn't do anything if it's state hasn't changed
     private String lastMeeting, lastField;
     
-    private Context context = this;
+    private final Context context = this;
     
     //Static identifiers for the SharedPrefs File - saving the view when paused
     private final static String CONTACTSINT = "ContactPosition";
@@ -50,15 +52,18 @@ public class WorkerContactsActivityActivity extends Activity {
     private final static String MEETINGINT = "MeetingSpPosition";
     private final static String PREFS_NAME = "WorkerContactsPrefs";
     private final static String THEME = "SpinnerTxtSize";
-    
-    //Use this TAG with every Logcat entry
+	private static final int REQUEST_READ_CONTACTS_PERMISSION = 1;
+
+	//Use this TAG with every Logcat entry
     public static final String TAG = "WorkerContacts";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	//remove title bar from the view before it shows
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    	Log.v(TAG,"Activity onCreate Started");
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		Log.v(TAG,"Activity onCreate Started");
+
+
     	//get shared preferences to read theme and last view state
 	    SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME, 0);
 	    int ThemeInt = mPrefs.getInt(THEME, -1);
@@ -82,12 +87,22 @@ public class WorkerContactsActivityActivity extends Activity {
 	    }
 	    	
         super.onCreate(savedInstanceState);
+		// Check if the permission is not granted
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+				!= PackageManager.PERMISSION_GRANTED) {
+
+			// Request the permission
+			ActivityCompat.requestPermissions(this,
+					new String[]{Manifest.permission.READ_CONTACTS},
+					REQUEST_READ_CONTACTS_PERMISSION);
+		}
+
         setContentView(R.layout.main);
         //Initialize Objects
         InitComplete = false;
-	    Contacts = (ListView) findViewById(R.id.lvContacts);
-	    Field = (Spinner) findViewById(R.id.spField);
-	    Meeting = (Spinner) findViewById(R.id.spMeeting);
+	    Contacts = findViewById(R.id.lvContacts);
+	    Field = findViewById(R.id.spField);
+	    Meeting = findViewById(R.id.spMeeting);
 	    
 	    //Initialize Field Listener
 	    Field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,7 +113,7 @@ public class WorkerContactsActivityActivity extends Activity {
 				//Don't do anything if this is the initial setup of the activity
 				if (InitComplete){
 					//Make sure the value in the spinner has changed before doing anything
-					if (lastField!=Field.getSelectedItem().toString()){
+					if (!Objects.equals(lastField, Field.getSelectedItem().toString())){
 						Log.v(TAG, "FieldSelected Begin");
 						//GetMeetingsInField
 						populateMeetings();
@@ -121,7 +136,7 @@ public class WorkerContactsActivityActivity extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				if (InitComplete){
-					if (lastMeeting!=Meeting.getSelectedItem().toString()){
+					if (!Objects.equals(lastMeeting, Meeting.getSelectedItem().toString())){
 						Log.v(TAG, "MeetingSelected Begin");
 						//GetMeetingsInField
 						populateContactList();
@@ -145,7 +160,7 @@ public class WorkerContactsActivityActivity extends Activity {
 					Log.v(TAG,"ContactsLV On Click Begin");
 					//Launch People Card for this contact
 					Intent contactIn = new Intent(Intent.ACTION_VIEW);
-					Long contactID = (long) 0;
+					Long contactID;
 					contactID = (long) Contacts.getPositionForView(arg1);
 					contactsCursor.moveToPosition((int) Contacts.getPositionForView(arg1));
 					contactID=contactsCursor.getLong(1);
@@ -275,7 +290,7 @@ public class WorkerContactsActivityActivity extends Activity {
     	MeetingArray.add("All");
      	MeetingArray = getUnique(cursorMeeting,MeetingArray);
 
-    	meetingAdapter = new ArrayAdapter<String>(this,R.layout.spinneritem,MeetingArray);
+		ArrayAdapter<String> meetingAdapter = new ArrayAdapter<String>(this, R.layout.spinneritem, MeetingArray);
     	meetingAdapter.setDropDownViewResource(R.layout.spinnerdropdownitem);
     	Meeting.setAdapter(meetingAdapter);
 
@@ -299,7 +314,8 @@ public class WorkerContactsActivityActivity extends Activity {
             String[] selectionArgs = null;
             String sortOrder = ContactsContract.CommonDataKinds.Organization.TITLE + " COLLATE LOCALIZED ASC";
             Log.v(TAG,"getMeetings ALL Ended");
-            return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+            //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+			return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
     	}
     	//Get Some
             // Run query
@@ -317,14 +333,15 @@ public class WorkerContactsActivityActivity extends Activity {
         String[] selectionArgs = null;
         String sortOrder = ContactsContract.CommonDataKinds.Organization.TITLE + " COLLATE LOCALIZED ASC";
     	Log.v(TAG,"getMeetings " + string + " Ended");
-        return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+		return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
   	}
 
 	private void populateFieldSpinner() {
 		// PopulateFieldSpinner
 //    	totalFields = 0;
     	Log.v(TAG, "Activity populateFieldSpinner Started");
-    	cursorField = getFields();
+		Cursor cursorField = getFields();
 //    	if cursorField.getCount()==0; TODO  Need to add error checking if there are 0 fields
     	cursorField.moveToFirst();
     	ArrayList<String> FieldArray = new ArrayList<String>();
@@ -393,7 +410,8 @@ public class WorkerContactsActivityActivity extends Activity {
         String[] selectionArgs = null;
         String sortOrder = ContactsContract.Data.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
     	Log.v(TAG,"getContacts Finished");
-        return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+		return getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
     }
     private Cursor getFields()
     {
@@ -410,7 +428,8 @@ public class WorkerContactsActivityActivity extends Activity {
         String[] selectionArgs = null;
         String sortOrder = ContactsContract.CommonDataKinds.Organization.COMPANY + " COLLATE LOCALIZED ASC";
         Log.v(TAG,"getFields Finished");
-        return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+        //return managedQuery(uri, projection, selection, selectionArgs, sortOrder);
+		return getContentResolver().query(uri, projection, selection, null, sortOrder);
     }
     private ArrayList<String> getUnique(Cursor c, ArrayList<String> InitialArray){
     	//Appends InitialArray with each UniqueValue in col 1 of Cursor

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
+            "outputFile": "com.warren.wkrcontacts.app-mergeDebugResources-3:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/home/warren/AndroidStudioProjects/WorkerContactsActivity1/app/src/main/res/values-large/dimens.xml",
+                    "source": "/home/warrenataylorcbk/StudioProjects/WorkerContacts/app/src/main/res/values-large/dimens.xml",
                     "from": {
                         "startLines": "4,3,2",
                         "startColumns": "4,4,4",

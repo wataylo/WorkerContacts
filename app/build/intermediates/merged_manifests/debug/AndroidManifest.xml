@@ -17,8 +17,7 @@
         android:allowBackup="false"
         android:debuggable="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:testOnly="true" >
+        android:label="@string/app_name" >
         <activity
             android:name="com.warren.wkrcontacts.WorkerContactsActivityActivity"
             android:exported="true"

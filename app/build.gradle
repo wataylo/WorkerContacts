@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "31.0.0"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.warren.wkrcontacts"
-        minSdkVersion 10
+        minSdk 31
+        targetSdk 34
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 13
     }
 
     buildTypes {
@@ -19,3 +18,17 @@ android {
     }
     namespace 'com.warren.wkrcontacts'
 }
+
+dependencies {
+    implementation 'androidx.fragment:fragment:1.6.2'
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
+}
+
+
